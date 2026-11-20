@@ -1,14 +1,11 @@
-.camp-layout{display:grid;grid-template-columns:minmax(200px,0.35fr) minmax(0,1fr);gap:clamp(22px,4vw,54px);padding-block:2rem 3rem;align-items:start}
-.camp-layout .directory ul,.camp-layout .hero{display:block}
-.camp-layout .directory{padding-top:.85rem}
+.camp-layout{display:grid;grid-template-columns:minmax(200px,0.35fr) minmax(0,1fr);gap:clamp(22px,4vw,54px);padding-block:1.3rem 3rem;border-top:2px solid var(--pine);align-items:start}
+.camp-layout .directory ul{display:block}
+.camp-layout .directory{padding-top:0;border-top:0}
 .camp-layout .directory h2{font-size:1.7rem}
 .camp-layout .directory li{padding:.6rem 0}
 .camp-layout .directory a{font-size:1.05rem}
 .camp-layout .directory small{font-size:.8rem}
-.camp-layout .hero{padding:0}
-.camp-layout .hero p{max-width:none}
-.camp-layout .hero img{margin-top:1.4rem}
-.base{border-top:2px solid var(--pine);margin-top:2rem;padding-top:1.3rem}
+.base{margin:0;padding:0}
 .base h2,.base h3{font-family:var(--serif);line-height:1.15;margin:0}
 .base h2{font-size:clamp(29px,4vw,46px);font-weight:400}
 .base h3{font-size:1.35rem}
@@ -23,7 +20,7 @@
 .ridge{background:#edf0e5;padding:1rem}
 .ridge a,.stay a{font-size:.88rem}
 @media(max-width:760px){.camp-layout{display:flex;flex-direction:column}
-.camp-layout>div,.camp-layout .directory{width:100%}
+.camp-layout>.base,.camp-layout .directory{width:100%}
 .camp-layout .directory{order:2}
 .camp-layout .directory ul{columns:2;column-gap:1.1rem}
 .camp-layout .directory li{break-inside:avoid}
