@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jeff &amp; Chuck's Excellent Adventure!</title><link rel="stylesheet" href="guide.css"><link rel="stylesheet" href="basecamp.css?v=trail-finder-2"><script defer src="skyland-weather.js"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jeff &amp; Chuck's Excellent Adventure!</title><link rel="stylesheet" href="guide.css"><link rel="stylesheet" href="basecamp.css?v=column-sort-1"><script defer src="skyland-weather.js"></script></head>
 <body><nav class="mast" aria-label="Main navigation"><div><a class="brand" href="index.html">Shenandoah Trail Guide</a><span><a href="index.html#trails">Hikes</a><a href="trailhead-map.html">Trailhead map</a></span></div></nav><main class="wrap"><header class="hero"><div><h1>Jeff &amp; Chuck's <em>Excellent Adventure!</em></h1><p>Our hiking plans for Shenandoah National Park, with Skyland Lodge as home base.</p><div class="hero-links"><a class="action" href="#trails">Find a hike</a><a class="action secondary" href="trailhead-map.html">Map &amp; drives from Skyland</a></div></div><img src="images/jeff-and-chuck.webp" width="1400" height="914" alt="Jeff and Chuck sitting side by side at a counter with two glasses of wine."></header><section class="base" id="basecamp"><h2>Basecamp at Skyland Lodge</h2><p>Skyline Drive, mileposts 41.7 and 42.5</p><div class="photos"><figure><a href="https://www.flickr.com/photos/snpphotos/49669986046/"><img loading="lazy" src="https://live.staticflickr.com/65535/49669986046_af49cfe850_b.jpg" alt="A paved walkway leads to the stone-fronted entrance of Skyland’s dining and gift shop building."></a><figcaption>Front entrance to Skyland’s dining lodge · <a href="https://www.flickr.com/photos/snpphotos/49669986046/">Shenandoah National Park</a></figcaption></figure>
 <figure><img loading="lazy" src="https://www.nps.gov/common/uploads/cropped_image/E2869254-B86B-B34F-2538C47CB87C59D6.jpg" alt="Inside the Pollock Dining Room"><figcaption>Inside the Pollock Dining Room · <a href="https://www.nps.gov/places/000/skyland-dining-room.htm">NPS</a></figcaption></figure></div>
 <div class="stay"><div><section><h3>Arrival &amp; departure</h3><dl><dt>Check-in</dt><dd>4:00 p.m.</dd><dt>Check-out</dt><dd>11:00 a.m.</dd></dl><a href="https://www.goshenandoah.com/lodging/policies">Lodge policies</a></section>
@@ -8,12 +8,10 @@
 <section class="directory" id="trails" aria-labelledby="finder-heading"><h2 id="finder-heading">Trail Finder</h2>
 <p class="origin">One-way drives from the Skyland dining room.</p>
 <form id="finder" hidden>
-<div class="sort-row"><label>Sort by <select name="sort"><option value="time">Drive time</option><option value="road">Road miles</option><option value="length">Hike length</option><option value="gain">Elevation gain</option></select></label>
-<label>Order <select name="order"><option value="1">Low to high</option><option value="-1">High to low</option></select></label></div>
 <fieldset><legend>Maximum limits</legend><div class="limit-row"><label>Drive (min)<input type="number" min="0" step="any" placeholder="Any" name="time"></label><label>Road miles<input type="number" min="0" step="any" placeholder="Any" name="road"></label><label>Hike miles<input type="number" min="0" step="any" placeholder="Any" name="length"></label><label>Gain (ft)<input type="number" min="0" step="any" placeholder="Any" name="gain"></label></div></fieldset>
 <div class="filter-actions"><label><input type="checkbox" name="jeff"> Jeff’s picks only</label>
 <button type="reset">Reset filters</button></div></form>
-<div class="results-meta"><p id="matches" aria-live="polite">11 trails</p><p><b class="pick">*</b> Jeff’s pick</p></div><table class="comparison" aria-label="Trail comparison"><thead><tr><th scope="col">Trail</th><th scope="col">Drive time</th><th scope="col">Road miles</th><th scope="col">Hike miles</th><th scope="col">Elevation gain</th></tr></thead><tbody id="results"><tr id="stony-man" data-time="2" data-road="0.3" data-length="1.6" data-gain="340" data-jeff="true"><th scope="row"><a href="stony-man.html">Stony Man via the Appalachian Trail</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>2 min</td><td><span class="mobile-label" hidden aria-hidden="true">Road miles</span>0.3 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>1.6 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>340 ft</td></tr>
+<div class="results-meta"><p id="matches" aria-live="polite">11 trails</p><p><b class="pick">*</b> Jeff’s pick</p></div><table class="comparison" aria-label="Trail comparison"><thead><tr><th scope="col"><button type="button" data-sort="name">Trail <span aria-hidden="true">↕</span></button></th><th scope="col"><button type="button" data-sort="time">Drive time <span aria-hidden="true">↕</span></button></th><th scope="col"><button type="button" data-sort="road">Road miles <span aria-hidden="true">↕</span></button></th><th scope="col"><button type="button" data-sort="length">Hike miles <span aria-hidden="true">↕</span></button></th><th scope="col"><button type="button" data-sort="gain">Elevation gain <span aria-hidden="true">↕</span></button></th></tr></thead><tbody id="results"><tr id="stony-man" data-time="2" data-road="0.3" data-length="1.6" data-gain="340" data-jeff="true"><th scope="row"><a href="stony-man.html">Stony Man via the Appalachian Trail</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>2 min</td><td><span class="mobile-label" hidden aria-hidden="true">Road miles</span>0.3 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>1.6 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>340 ft</td></tr>
 <tr id="hawksbill" data-time="10" data-road="4.2" data-length="1.7" data-gain="690" data-jeff="true"><th scope="row"><a href="hawksbill.html">Hawksbill Summit Trail</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>10 min</td><td><span class="mobile-label" hidden aria-hidden="true">Road miles</span>4.2 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>1.7 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>690 ft</td></tr>
 <tr id="rose-river" data-time="19" data-road="8.0" data-length="4" data-gain="910" data-jeff="false"><th scope="row"><a href="rose-river.html">Rose River Falls Loop</a></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>19 min</td><td><span class="mobile-label" hidden aria-hidden="true">Road miles</span>8.0 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>4 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>910 ft</td></tr>
 <tr id="marys-rock" data-time="25" data-road="10.7" data-length="3.7" data-gain="1210" data-jeff="true"><th scope="row"><a href="marys-rock.html">Marys Rock · North Approach</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>25 min</td><td><span class="mobile-label" hidden aria-hidden="true">Road miles</span>10.7 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>3.7 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>1,210 ft</td></tr>
@@ -28,12 +26,34 @@ const finder = document.querySelector('#finder');
 const results = document.querySelector('#results');
 const trails = Array.from(results.children);
 const limits = ['time', 'road', 'length', 'gain'];
+const headings = document.querySelectorAll('.comparison thead button');
+let key = 'time';
+let direction = 1;
+function trailName(row) {
+  return row.querySelector('th a').textContent;
+}
+for (const button of headings) {
+  button.addEventListener('click', () => {
+    direction = key === button.dataset.sort ? -direction : 1;
+    key = button.dataset.sort;
+    refreshTrails();
+  });
+}
 function refreshTrails() {
   const fields = finder.elements;
-  const key = fields.sort.value;
-  const direction = Number(fields.order.value);
+  for (const button of headings) {
+    const active = button.dataset.sort === key;
+    const header = button.closest('th');
+    if (active) header.setAttribute('aria-sort', direction === 1 ? 'ascending' : 'descending');
+    else header.removeAttribute('aria-sort');
+    button.querySelector('span').textContent = active ? (direction === 1 ? '↑' : '↓') : '↕';
+  }
   let count = 0;
-  const sorted = trails.slice().sort((a,b) => direction * (a.dataset[key] - b.dataset[key]) || a.textContent.localeCompare(b.textContent));
+  const sorted = trails.slice().sort((a,b) => {
+    const names = trailName(a).localeCompare(trailName(b), 'en');
+    if (key === 'name') return direction * names;
+    return direction * (Number(a.dataset[key]) - Number(b.dataset[key])) || names;
+  });
   for (const trail of sorted) {
     const withinLimits = limits.every(metric => fields.namedItem(metric).value === '' || Number(trail.dataset[metric]) <= fields.namedItem(metric).valueAsNumber);
     trail.hidden = !withinLimits || (fields.jeff.checked && trail.dataset.jeff !== 'true');
