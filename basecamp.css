@@ -26,7 +26,9 @@
 #finder legend { padding:0; margin-bottom:.4rem; color:#475d52; }
 #finder input[type=number] { display:block; width:100%; min-width:0; height:2.65rem; margin-top:.3rem; padding:.45rem .7rem; border:1px solid #91a396; border-radius:4px; background:white; color:var(--ink); font:normal 1rem var(--sans); }
 .filter-actions,.results-meta { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-.filter-actions { border-top:1px solid var(--line); padding-top:.8rem; }
+.pick-controls { display:flex; align-items:center; flex-wrap:wrap; gap:.35rem 1rem; }
+#pick-legend { font-size:.88rem; white-space:nowrap; }
+.filter-actions { flex-wrap:wrap; border-top:1px solid var(--line); padding-top:.8rem; }
 .filter-actions label { display:flex; align-items:center; gap:.45rem; }
 .filter-actions input { width:1rem; height:1rem; accent-color:var(--pine); }
 .filter-actions button { border:1px solid #91a396; border-radius:4px; background:var(--paper); color:var(--pine); font:inherit; font-size:.86rem; padding:.45rem .85rem; cursor:pointer; }
