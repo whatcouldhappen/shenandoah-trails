@@ -16,32 +16,41 @@
 .hero-links { display:flex; flex-wrap:wrap; gap:.65rem; }
 .action.secondary { background:transparent; color:var(--pine); box-shadow:inset 0 0 0 1px var(--pine); }
 .photos img { aspect-ratio:2.35; }
-#finder { display:flex; align-items:flex-end; flex-wrap:wrap; gap:1rem; padding:1rem; background:#eef0e7; font-size:.9rem; }
-#finder[hidden],#results tr[hidden] { display:none; }
-#finder select,#finder input[type=number] { display:block; min-height:2.4rem; padding:.4rem; border:1px solid #89988c; border-radius:3px; background:white; font:inherit; color:inherit; }
-#finder fieldset { flex:1 1 20rem; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.55rem; min-width:0; padding:0; margin:0; border:0; }
-#finder legend { font-weight:650; }
-#finder input[type=number] { width:100%; }
-#finder button { padding:.45rem .7rem; min-height:2.4rem; font:inherit; cursor:pointer; }
-#matches,.origin { font-size:.9rem; }
+
+#finder { display:grid; gap:1rem; padding:clamp(16px,2.2vw,28px); border:1px solid var(--line); border-radius:6px; background:#f1f3eb; }
+#finder[hidden], #results tr[hidden] { display:none; }
+.sort-row,.limit-row { display:grid; gap:1rem; }
+.sort-row { grid-template-columns:repeat(2,minmax(0,1fr)); max-width:34rem; }
+.limit-row { grid-template-columns:repeat(4,minmax(0,1fr)); }
+#finder label,#finder legend { font-size:.86rem; font-weight:600; }
+#finder fieldset { padding:0; margin:0; border:0; min-width:0; }
+#finder legend { padding:0; margin-bottom:.4rem; color:#475d52; }
+#finder select,#finder input[type=number] { display:block; width:100%; min-width:0; height:2.65rem; margin-top:.3rem; padding:.45rem .7rem; border:1px solid #91a396; border-radius:4px; background:white; color:var(--ink); font:normal 1rem var(--sans); }
+.filter-actions,.results-meta { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.filter-actions { border-top:1px solid var(--line); padding-top:.8rem; }
+.filter-actions label { display:flex; align-items:center; gap:.45rem; }
+.filter-actions input { width:1rem; height:1rem; accent-color:var(--pine); }
+.filter-actions button { border:1px solid #91a396; border-radius:4px; background:var(--paper); color:var(--pine); font:inherit; font-size:.86rem; padding:.45rem .85rem; cursor:pointer; }
+.results-meta { margin:1rem 0 .5rem; font-size:.9rem; color:#42574a; }
+.results-meta p { margin:0; }
 .comparison { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
-.comparison th,.comparison td { padding:.8rem .6rem; border-bottom:1px solid var(--line); text-align:right; }
+.comparison th,.comparison td { padding:.75rem 1rem; border-bottom:1px solid var(--line); text-align:right; }
 .comparison th:first-child { text-align:left; }
+.comparison td { white-space:nowrap; }
 .comparison thead { background:var(--pine); color:white; font-size:.88rem; }
-.comparison tbody tr:nth-child(even) { background:#f0f1e9; }
-.comparison .pick { display:block; color:var(--clay); font:.8rem/1.5 var(--sans); }
+.comparison tbody th a { font-size:1.08rem; }
+.pick { color:var(--clay); }
+sup.pick { margin-left:.12em; font:bold .8em var(--serif); }
 .mobile-label { display:none; }
-@media(max-width:650px) {
+@media(max-width:700px) {
  .stay { grid-template-columns:1fr; gap:0; }
  .photos { gap:.65rem; }
  .photos img { aspect-ratio:1.65; }
- #finder { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
- #finder select { width:100%; }
- #finder fieldset { grid-column:1/-1; grid-template-columns:1fr 1fr; }
+ .limit-row { grid-template-columns:repeat(2,minmax(0,1fr)); }
  .comparison,.comparison tbody { display:block; }
  .comparison thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
- .comparison tbody tr { display:grid; grid-template-columns:1fr 1fr; gap:.45rem 1rem; padding:.85rem; border-top:1px solid var(--line); }
+ .comparison tbody tr { display:grid; grid-template-columns:1fr 1fr; gap:.5rem 1rem; padding:.85rem .4rem; border-top:1px solid var(--line); }
  .comparison tbody th,.comparison td { border:none; padding:0; text-align:left; }
  .comparison tbody th { grid-column:1/-1; }
- .mobile-label { display:block; font-size:.8rem; color:#485a50; }
+ .mobile-label[hidden] { display:block; font-size:.8rem; color:#485a50; }
 }
