@@ -43,3 +43,9 @@ a:focus-visible{outline:3px solid #b77136;outline-offset:3px}
 }
 
 .directory li p{font-size:.94rem;line-height:1.5;margin:.35rem 0;color:#344c40}.directory small{font-weight:580}
+
+.detail main dl:first-of-type{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8rem),1fr));gap:.8rem 1.25rem}
+.detail .hike-notes{margin:1.25rem 0 1.75rem;padding:clamp(1rem,3vw,1.6rem);border:1px solid var(--line);border-radius:4px;background:#fffdf8}
+.detail .hike-notes h2{margin:0 0 .7rem;font-size:1.55rem}
+.detail .hike-notes p{margin:.6rem 0;max-width:68ch}
+.detail .hike-notes p:last-child{margin-bottom:0;color:#49594f}
