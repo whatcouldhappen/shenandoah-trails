@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shenandoah Hike Calendar</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f7f1;color:#213d32;font:16px/1.45 "Segoe UI",system-ui,sans-serif}main{max-width:1250px;margin:auto;padding:clamp(16px,4vw,48px)}h1,h2,h3{font-family:Georgia,serif;font-weight:normal;margin:.2em 0}h1{font-size:clamp(36px,5vw,64px)}h2{font-size:27px}p{margin:7px 0 14px}.toolbar,.fields,.legend{display:flex;gap:10px;align-items:end;flex-wrap:wrap}label{display:grid;gap:3px;font-size:14px}input,button,select{font:inherit;color:inherit;background:white;border:1px solid #8c9d8d;border-radius:5px;padding:7px 10px;max-width:100%}button{cursor:pointer}button.primary{background:#27523e;color:white}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #bd6934}button[disabled]{opacity:.55;cursor:default}section{margin-top:22px}.legend{font-size:14px;gap:16px;margin-bottom:13px}.legend i{display:inline-block;width:14px;height:12px;margin-right:5px}.drive{background:#bbd2e3;color:#203647}.walk{background:#386547;color:white}.rest{background:#ead4a7}.scroll{overflow-x:auto}.clockgrid{min-width:750px;display:grid;grid-template-columns:90px minmax(0,1fr);gap:6px 0;padding-right:24px}.axis,.lane{position:relative}.axis{height:22px}.tick{position:absolute;transform:translateX(-50%);font-size:12px;white-space:nowrap}.day{font-weight:600;align-self:center}.lane{height:53px;cursor:crosshair;background-color:#edf1e9;background-image:linear-gradient(to right,#c7d0c4 1px,transparent 1px);border-bottom:1px solid #c1cbbd}.closed{position:absolute;height:100%;background:repeating-linear-gradient(135deg,#dee3dc 0 3px,#e9ece6 3px 9px);pointer-events:none}.block{position:absolute;display:flex;align-items:stretch;overflow:hidden;height:40px;top:6px;padding:0;border:1px solid #47644f;border-radius:4px;cursor:grab;touch-action:none;user-select:none;min-width:2px}.block span{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;line-height:38px;text-align:center;font-size:14px}.block.drag{opacity:.45}.target{position:absolute;top:0;bottom:0;border-left:3px solid #ae5b1e;pointer-events:none}.target b{position:absolute;top:0;left:2px;background:#fff6dd;font-size:12px;white-space:nowrap}.details{grid-column:2;font-size:14px;line-height:1.5}.details p{margin:0 0 4px}.dayRow{display:contents}.editor{grid-column:1/-1;padding:14px;background:#e6eee4;border:1px solid #adbeab;border-radius:6px;min-width:0}.editor h3{margin-top:0}.editor input[type=number]{width:95px}.trailbox{margin:8px 0;max-width:540px}.trailbox input{width:100%;font-size:17px}.matches{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0}.matches:empty{display:none}.matches button{text-align:left}.editor .toolbar{margin-top:12px}.msg{min-height:1.4em;font-weight:600;color:#824519}.muted,small{color:#526658}.saved{border-top:1px solid #bcc7b9;padding-top:14px}.saved .toolbar{margin:8px 0}.saved select{max-width:min(100%,650px)}[hidden]{display:none!important}.printTitle{display:none}@media(max-width:650px){.editor{position:relative;width:calc(100vw - 54px);position:sticky;left:2px}.details{max-width:75vw}}@media print{main{padding:0}.scroll{overflow:visible}.clockgrid{min-width:0}.editor,.toolbar,.saved,.msg,.instruction,.target{display:none!important}.printTitle{display:block}.block,.legend i,.closed{print-color-adjust:exact}.details{font-size:12px}}
+dialog{width:min(630px,94vw);max-height:88vh;overflow:auto;border:1px solid #809687;border-radius:10px;padding:22px;color:inherit;background:#f7f7f1}dialog::backdrop{background:#20382f73}.dialogHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}dialog .toolbar,dialog .fields{margin:10px 0 16px}.block.overlap{outline:2px dashed #a55219;outline-offset:1px}.overlapNote{color:#864216;font-size:14px}.printTitle{overflow-wrap:anywhere}@media print{dialog{display:none!important}}
+main{padding:clamp(14px,2vw,28px) clamp(16px,3vw,40px)}header,.calHeading,.filterbar,#finder,.limit-row,.filter-actions,.pick-controls,.actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px}header{border-bottom:1px solid #bfcbbd;padding-bottom:8px}header h1{font-size:clamp(25px,3vw,38px);margin:0}header span{color:#54675d}.filterbar,.calHeading{margin:10px 0}.filterbar h2,.calHeading h2{font-size:22px;margin:0}.filterbar fieldset{padding:0;border:0;margin:0}.filterbar legend{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}.limit-row label{display:flex;align-items:center;gap:4px}.limit-row input{width:59px;padding:4px}.filter-actions label,.timing{display:flex;align-items:center;gap:4px}.filter-actions button,.actions button{padding:5px 8px}.pick-controls{gap:3px}.calHeading{border-top:1px solid #c3ccbf;padding-top:8px}.calHeading .legend{margin:0;gap:8px}.actions{margin-left:auto;gap:5px}.clockgrid{row-gap:3px}.block{height:30px}.block span{line-height:28px}.details{display:none}.withTimes .details:not(:empty){display:block}.msg:empty{display:none}.msg{margin:4px 0}.trailList{margin-top:10px;border-top:1px solid #bec9bb}.trailList summary{cursor:pointer;padding:6px 0;font:bold 18px Georgia,serif}.trailList summary span{font:14px system-ui;color:#58685d}.tableScroll{overflow:auto}.comparison{width:100%;border-collapse:collapse}.comparison th,.comparison td{text-align:right;border-bottom:1px solid #d4dbcf;padding:4px 8px;font-size:15px}.comparison th:first-child{text-align:left}.comparison tbody th{font-weight:500}.comparison thead button{font-size:14px;padding:2px 3px;background:transparent;border:0;font-weight:600}.comparison a{color:#24553d}.comparison tr[hidden]{display:none}.calHeading .legend i{height:10px;width:10px}.filterbar h2:after{content:" · maximums";font:13px system-ui;color:#53655a}@media print{.filterbar,.trailList,.timing,.actions{display:none!important}.details:not(:empty){display:block}.calHeading{border:0}}@media(max-width:700px){.actions{margin-left:0}.limit-row{gap:6px}.limit-row label{display:grid;gap:0}.comparison{min-width:610px}}
+.lower{background:#347455;color:white}.middle{background:#976000;color:white}.higher{background:#933e3e;color:white}.unknown{background:#626a69;color:white}.gradeDot{display:inline-block;width:.65em;height:.65em;border-radius:50%;margin-right:.35em}.legend i:not(:first-child){margin-left:.35em}.method{font-size:14px;margin:4px 0}.trailList .method summary{font:inherit;padding:1px 0}.method p{max-width:75ch}.comparison td{white-space:nowrap}</style></head><body><main id="hikeCalendar"><header><h1>Shenandoah hike planner</h1><span>Skyland Lodge · Monday–Thursday</span></header><section class="filterbar"><h2>Trail Finder</h2><form id="finder" hidden>
+<fieldset><legend>Maximum limits</legend><div class="limit-row"><label>Drive (min)<input type="number" min="0" step="any" placeholder="Any" name="time"></label><label>Uphill grade (%)<input type="number" min="0" step="any" placeholder="Any" name="grade"></label><label>Hike miles<input type="number" min="0" step="any" placeholder="Any" name="length"></label><label>Gain (ft)<input type="number" min="0" step="any" placeholder="Any" name="gain"></label></div></fieldset>
+<div class="filter-actions"><div class="pick-controls"><label><input type="checkbox" name="jeff" aria-describedby="pick-legend"> Jeff’s picks only</label><span id="pick-legend">(*)</span></div>
+<button type="reset">Reset filters</button></div></form></section>
+
+<div class="calHeading"><h2>Hike calendar</h2><div class="legend"><span><i class="drive"></i>Drive</span><span title="Estimated uphill grade">Uphill <i class="lower"></i>&lt;9% <i class="middle"></i>9–&lt;12% <i class="higher"></i>12%+</span><span><i class="rest"></i>Break</span></div><label class="timing"><input type="checkbox" id="timing"> Show times</label><div class="actions"><button type="button" id="add">Add an outing</button><button id="dialogOpen" class="primary">Save as a new idea</button><button id="manageOpen">Open or share ideas</button></div></div>
+<div class="printTitle" id="printTitle"></div><div class="scroll"><div class="clockgrid" id="grid"></div></div>
+<p class="msg" id="message" role="status"></p>
+<form id="editor" class="editor" hidden><h3 id="editorTitle">Add an outing</h3>
+<div class="fields"><label>Day<select id="day"></select></label><label>Start time<input id="start" type="time" required></label></div>
+<div class="trailbox"><label>Trail name<input id="search" autocomplete="off" maxlength="180" placeholder="Type a trail name, e.g. Hawksbill" required></label><div class="matches" id="matches"></div><small id="source"></small></div>
+<div class="fields"><label>Break first (min)<input id="rest" type="number" min="0" max="1439" required></label><label>Drive out (min)<input id="out" type="number" min="0" max="1439" required></label><label>Hiking (min)<input id="walk" type="number" min="1" max="1439" required></label><label>Drive back (min)<input id="back" type="number" min="0" max="1439" required></label></div>
+<p id="preview"></p><div class="toolbar"><button class="primary" id="commit">Add to calendar</button><button type="button" id="cancel">Cancel</button><button type="button" id="remove" hidden>Remove outing</button></div></form>
+<details class="trailList" open><summary>Trail list <span id="trailCount" aria-live="polite"></span></summary><details class="method"><summary>How is uphill grade estimated?</summary><p>We divide total elevation gain by half the hike distance in feet, then multiply by 100. This assumes half the route is uphill and treats trail mileage as approximate horizontal distance. Flats, rolling terrain and short steep pitches can change the actual slope. Colors compare the estimated average climb across these trails. Custom hikes without matching trail data appear gray.</p></details><div class="tableScroll"><table class="comparison" aria-label="Trail comparison"><thead><tr><th scope="col"><button type="button" data-sort="name">Trail <span aria-hidden="true">↕</span></button></th><th scope="col"><button type="button" data-sort="time">Drive time <span aria-hidden="true">↕</span></button></th><th scope="col"><button type="button" data-sort="grade">Est. uphill grade <span aria-hidden="true">↕</span></button></th><th scope="col"><button type="button" data-sort="length">Hike miles <span aria-hidden="true">↕</span></button></th><th scope="col"><button type="button" data-sort="gain">Elevation gain <span aria-hidden="true">↕</span></button></th></tr></thead><tbody id="results"><tr id="stony-man" data-time="2" data-grade="8.0" data-band="lower" data-road="0.3" data-length="1.6" data-gain="340" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/stony-man.html">Stony Man via the Appalachian Trail</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>2 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot lower"></span>8.0%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>1.6 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>340 ft</td></tr>
+<tr id="white-oak-canyon" data-time="4" data-grade="8.6" data-band="lower" data-road="1.1" data-length="4.6" data-gain="1040" data-jeff="false"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/white-oak-canyon.html">White Oak Canyon to Upper Falls Overlook</a></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>4 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot lower"></span>8.6%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>4.6 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>1,040 ft</td></tr>
+<tr id="hawksbill" data-time="10" data-grade="15.4" data-band="higher" data-road="4.2" data-length="1.7" data-gain="690" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/hawksbill.html">Hawksbill Summit Trail</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>10 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot higher"></span>15.4%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>1.7 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>690 ft</td></tr>
+<tr id="rose-river" data-time="19" data-grade="8.6" data-band="lower" data-road="8.0" data-length="4" data-gain="910" data-jeff="false"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/rose-river.html">Rose River Falls Loop</a><br><a style="font:normal .85rem/1.4 var(--sans);text-decoration:underline" target="_top" href="https://shenandoah.thetesseraworks.org/rose-river.html#both-waterfalls">Both falls option · 4¼ mi</a></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>19 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot lower"></span>8.6%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>4 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>910 ft</td></tr>
+<tr id="dark-hollow-falls" data-time="21" data-grade="11.9" data-band="middle" data-road="9.1" data-length="1.4" data-gain="440" data-jeff="false"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/dark-hollow-falls.html">Dark Hollow Falls Trail</a></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>21 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot middle"></span>11.9%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>1.4 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>440 ft</td></tr>
+<tr id="marys-rock" data-time="25" data-grade="12.4" data-band="higher" data-road="10.7" data-length="3.7" data-gain="1210" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/marys-rock.html">Marys Rock · North Approach</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>25 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot higher"></span>12.4%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>3.7 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>1,210 ft</td></tr>
+<tr id="pass-mountain" data-time="25" data-grade="7.5" data-band="lower" data-road="10.7" data-length="3.4" data-gain="670" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/pass-mountain.html">Pass Mountain Loop</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>25 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot lower"></span>7.5%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>3.4 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>670 ft</td></tr>
+<tr id="bearfence" data-time="34" data-grade="8.2" data-band="lower" data-road="14.8" data-length="1.1" data-gain="239" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/bearfence.html">Bearfence Mountain Trail</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>34 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot lower"></span>8.2%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>1.1 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>239 ft</td></tr>
+<tr id="sugarloaf" data-time="44" data-grade="8.5" data-band="lower" data-road="19.9" data-length="5.0" data-gain="1120" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/sugarloaf.html">Sugarloaf Loop</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>44 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot lower"></span>8.5%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>5.0 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>1,120 ft</td></tr>
+<tr id="south-river-falls" data-time="50" data-grade="10.4" data-band="middle" data-road="21.6" data-length="3.3" data-gain="910" data-jeff="false"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/south-river-falls.html">South River Falls and Fire Road Loop</a></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>50 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot middle"></span>10.4%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>3.3 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>910 ft</td></tr>
+<tr id="hightop" data-time="56" data-grade="11.8" data-band="middle" data-road="25.0" data-length="3" data-gain="935" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/hightop.html">Hightop Peak Trail</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>56 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot middle"></span>11.8%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>3 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>935 ft</td></tr>
+<tr id="old-rag" data-time="65" data-grade="9.5" data-band="middle" data-road="29.7" data-length="9.4" data-gain="2348" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/old-rag.html">Old Rag Mountain Loop</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>65 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot middle"></span>9.5%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>9.4 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>2,348 ft</td></tr>
+<tr id="compton-peak" data-time="69" data-grade="13.5" data-band="higher" data-road="31.6" data-length="2.4" data-gain="855" data-jeff="false"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/compton-peak.html">Compton Peak via the Appalachian Trail</a></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>69 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot higher"></span>13.5%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>2.4 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>855 ft</td></tr>
+<tr id="browns-gap" data-time="91" data-grade="8.2" data-band="lower" data-road="41.3" data-length="6.5" data-gain="1400" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/browns-gap.html">Browns Gap</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>91 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot lower"></span>8.2%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>6.5 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>1,400 ft</td></tr>
+<tr id="blackrock-summit" data-time="94" data-grade="6.6" data-band="lower" data-road="43.1" data-length="1.0" data-gain="175" data-jeff="false"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/blackrock-summit.html">Blackrock Summit</a></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>94 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot lower"></span>6.6%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>1.0 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>175 ft</td></tr>
+<tr id="chimney-rock" data-time="106" data-grade="9.2" data-band="middle" data-road="48.3" data-length="3.4" data-gain="830" data-jeff="true"><th scope="row"><a target="_top" href="https://shenandoah.thetesseraworks.org/chimney-rock.html">Calvary and Chimney Rocks Trail</a><sup class="pick" aria-label="Jeff’s pick">*</sup></th><td><span class="mobile-label" hidden aria-hidden="true">Drive time</span>106 min</td><td><span class="mobile-label" hidden aria-hidden="true">Est. uphill grade</span><span class="gradeDot middle"></span>9.2%</td><td><span class="mobile-label" hidden aria-hidden="true">Hike miles</span>3.4 mi</td><td><span class="mobile-label" hidden aria-hidden="true">Elevation gain</span>830 ft</td></tr></tbody></table></div></details><dialog id="planDialog" aria-labelledby="dialogTitle"><div class="dialogHead"><h2 id="dialogTitle">Save as a new idea</h2><button id="dismiss" type="button">Close</button></div><div id="saveFields"><div class="fields"><label>Plan name<input id="name" maxlength="100" placeholder="e.g. Waterfalls and summits"></label><label>Planned by<select id="author"><option>Chuck</option><option>Jeff</option></select></label><label>Plan date<input id="date" type="date"></label><button class="primary" id="save">Save idea</button></div></div><div id="manageFields" hidden>
+<div class="toolbar"><label>Saved ideas<select id="ideas"></select></label><button id="open">Open idea</button><button id="new">New blank calendar</button></div>
+<div class="toolbar"><button id="share">Download shareable calendar</button><button id="import">Import shared calendar</button><input type="file" accept=".html,text/html" id="file" hidden><button id="print">Print / PDF</button></div>
+</div><small>Ideas are saved in this browser. Download a calendar to share one editable idea or keep a backup.</small><p id="planStatus" role="status"></p></dialog>
+</main><script type="application/json" id="shared">null</script><script>
+(() => {
+"use strict";
+const catalog=[
+ {
+  "id": "stony-man",
+  "name": "Stony Man via the Appalachian Trail",
+  "drive": 2,
+  "walk": 60,
+  "url": "stony-man.html"
+ },
+ {
+  "id": "white-oak-canyon",
+  "name": "White Oak Canyon to Upper Falls Overlook",
+  "drive": 4,
+  "walk": 210,
+  "url": "white-oak-canyon.html"
+ },
+ {
+  "id": "hawksbill",
+  "name": "Hawksbill Summit Trail",
+  "drive": 10,
+  "walk": 75,
+  "url": "hawksbill.html"
+ },
+ {
+  "id": "rose-river",
+  "name": "Rose River Falls Loop",
+  "drive": 19,
+  "walk": 270,
+  "url": "rose-river.html"
+ },
+ {
+  "id": "dark-hollow-falls",
+  "name": "Dark Hollow Falls Trail",
+  "drive": 21,
+  "walk": 75,
+  "url": "dark-hollow-falls.html"
+ },
+ {
+  "id": "marys-rock",
+  "name": "Marys Rock · North Approach",
+  "drive": 25,
+  "walk": 210,
+  "url": "marys-rock.html"
+ },
+ {
+  "id": "pass-mountain",
+  "name": "Pass Mountain Loop",
+  "drive": 25,
+  "walk": 150,
+  "url": "pass-mountain.html"
+ },
+ {
+  "id": "bearfence",
+  "name": "Bearfence Mountain Trail",
+  "drive": 34,
+  "walk": 60,
+  "url": "bearfence.html",
+  "note": "The guide gives about 1 hour for the nearby NPS scramble route. Adjust this estimate for the mapped loop."
+ },
+ {
+  "id": "sugarloaf",
+  "name": "Sugarloaf Loop",
+  "drive": 44,
+  "walk": 420,
+  "url": "sugarloaf.html"
+ },
+ {
+  "id": "south-river-falls",
+  "name": "South River Falls and Fire Road Loop",
+  "drive": 50,
+  "walk": 135,
+  "url": "south-river-falls.html"
+ },
+ {
+  "id": "hightop",
+  "name": "Hightop Peak Trail",
+  "drive": 56,
+  "walk": 180,
+  "url": "hightop.html"
+ },
+ {
+  "id": "old-rag",
+  "name": "Old Rag Mountain Loop",
+  "drive": 65,
+  "walk": 450,
+  "url": "old-rag.html"
+ },
+ {
+  "id": "compton-peak",
+  "name": "Compton Peak via the Appalachian Trail",
+  "drive": 69,
+  "walk": 105,
+  "url": "compton-peak.html"
+ },
+ {
+  "id": "browns-gap",
+  "name": "Browns Gap",
+  "drive": 91,
+  "walk": 420,
+  "url": "browns-gap.html"
+ },
+ {
+  "id": "blackrock-summit",
+  "name": "Blackrock Summit",
+  "drive": 94,
+  "walk": 45,
+  "url": "blackrock-summit.html"
+ },
+ {
+  "id": "chimney-rock",
+  "name": "Calvary and Chimney Rocks Trail",
+  "drive": 106,
+  "walk": 150,
+  "url": "chimney-rock.html"
+ }
+];
+const days=["Monday","Tuesday","Wednesday","Thursday"], el=id=>document.getElementById(id);
+const pristine=document.documentElement.outerHTML, seed=JSON.parse(el("shared").textContent);
+const key="shenandoah-calendar-v2"+(seed?"-"+seed.id:"");
+const copy=x=>JSON.parse(JSON.stringify(x)), uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
+const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")};
+const blank=()=>({name:"",author:"Chuck",date:today(),events:[]});
+const total=e=>e.rest+e.out+e.walk+e.back, end=e=>e.start+total(e);
+const time=t=>String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0");
+const clock=t=>(Math.floor(t/60)%12||12)+":"+String(t%60).padStart(2,"0")+(t%1440<720?" AM":" PM");
+const minutes=s=>s?Number(s.slice(0,2))*60+Number(s.slice(3)):NaN;
+function timeProblem(e){
+ return !Number.isInteger(e.start)||e.start<(e.day===0?840:0)||end(e)>1440?"Choose a time within the day. Monday begins at 2:00 PM.":"";
+}
+function overlaps(e,events){return events.some(h=>h.id!==e.id&&h.day===e.day&&e.start<end(h)&&h.start<end(e))}
+function valid(p){
+ if(!p||typeof p.name!=="string"||!["Jeff","Chuck"].includes(p.author)||!/^\d{4}-\d{2}-\d{2}$/.test(p.date)||!Array.isArray(p.events))return false;
+ const ids=new Set();
+ return p.events.every(e=>e&&typeof e.id==="string"&&!ids.has(e.id)&&ids.add(e.id)&&typeof e.name==="string"&&Number.isInteger(e.day)&&e.day>=0&&e.day<4&&["start","rest","out","walk","back"].every(k=>Number.isInteger(e[k])&&e[k]>=0)&&e.walk>0&&!timeProblem(e));
+}
+function migrate(){
+ const p=blank();try{const old=JSON.parse(localStorage.getItem("shenandoah-hikes-v1"));if(Array.isArray(old))old.forEach((d,i)=>{let t=minutes(d.start);d.hikes.forEach(h=>{const e={id:uid(),name:h.name,route:h.route||"",day:i,start:t,rest:h.rest,out:h.outbound,walk:h.walking,back:h.inbound};p.events.push(e);t=end(e)})})}catch{}return valid(p)?p:blank();
+}
+let work=valid(seed)?copy(seed):migrate(),ideas=[],edit=null,drag=null,range=[480,1080];
+try{const saved=JSON.parse(localStorage.getItem(key));if(saved&&valid(saved.work)){work=saved.work;ideas=(saved.ideas||[]).filter(valid)}}catch{}
+function persist(){try{localStorage.setItem(key,JSON.stringify({work,ideas}))}catch{el("planStatus").textContent="Browser saving is unavailable. Download a shareable calendar to keep this plan."}}
+function node(tag,cls,text){const n=document.createElement(tag);n.className=cls;if(text)n.textContent=text;return n}
+function msg(s){el("message").textContent=s}
+function describe(e){let t=e.start;return [["Break",e.rest],["Drive out",e.out],["Hike",e.walk],["Drive back",e.back]].filter(x=>x[1]).map(([label,n])=>{const from=t;t+=n;return label+" "+clock(from)+"–"+clock(t)}).join(" · ")}
+function pct(t){return 100*(t-range[0])/(range[1]-range[0])}
+function slot(lane,x,offset=0){const box=lane.getBoundingClientRect();return Math.round((range[0]+(x-box.left)/box.width*(range[1]-range[0])-offset)/5)*5}
+function draw(){
+ const grid=el("grid");if(grid.contains(el("editor")))grid.after(el("editor"));grid.replaceChildren();
+ range=[Math.min(480,...work.events.map(e=>60*Math.floor(e.start/60))),Math.max(1080,...work.events.map(e=>60*Math.ceil(end(e)/60)))];
+ grid.append(node("div",""));const axis=node("div","axis");grid.append(axis);
+ for(let t=range[0];t<=range[1];t+=range[1]-range[0]>840?120:60){const n=node("span","tick",clock(t).replace(":00",""));n.style.left=pct(t)+"%";axis.append(n)}
+ days.forEach((day,i)=>{
+  const lane=node("div","lane");lane.dataset.day=i;lane.style.backgroundSize=(6000/(range[1]-range[0]))+"% 100%";grid.append(node("div","day",day),lane);
+  if(!i){const shade=node("div","closed");shade.style.width=pct(840)+"%";lane.append(shade)}
+  lane.onclick=ev=>{if(ev.target.closest(".block"))return;openEditor(i,Math.min(1435,Math.max(i===0?840:0,slot(lane,ev.clientX))))};
+  const details=node("div","details");grid.append(details);
+  const trackEnds=[];
+  const outings=work.events.filter(e=>e.day===i).sort((a,b)=>a.start-b.start);
+  for(const e of outings){
+   let track=trackEnds.findIndex(t=>t<=e.start);
+   if(track<0)track=trackEnds.length;
+   trackEnds[track]=end(e);
+   const route=catalog.find(c=>c.id===e.route)||catalog.find(c=>c.name===e.name);
+   const metrics=route&&el(route.id)?.dataset;
+   const gradeLabel=metrics?.grade ? metrics.grade+"% est. uphill" : "Uphill grade unknown";
+   const b=node("button","block");b.style.top=(4+track*35)+"px";if(overlaps(e,outings))b.classList.add("overlap");b.type="button";b.title=e.name+" · "+gradeLabel+" · "+describe(e);b.setAttribute("aria-label",b.title);b.style.left=pct(e.start)+"%";b.style.width=(pct(end(e))-pct(e.start))+"%";
+   for(const [k,cls] of [["rest","rest"],["out","drive"],["walk","walk"],["back","drive"]])if(e[k]){const seg=node("span",k==="walk"?"walk "+(metrics?.band||"unknown"):cls,k==="walk"?e.name+(metrics?.grade?" · "+metrics.grade+"%":""):"");seg.style.width=100*e[k]/total(e)+"%";b.append(seg)}
+   b.onpointerdown=ev=>beginDrag(ev,e,lane,b);b.onclick=ev=>{ev.stopPropagation();if(!suppressClick)openEditor(i,e.start,e)};lane.append(b);
+   const line=node("p","");line.append(node("strong","",e.name),document.createTextNode(" · "+gradeLabel+" · "+describe(e)));details.append(line)
+  }
+  lane.style.height=(38+35*Math.max(0,trackEnds.length-1))+"px";
+  if(trackEnds.length>1)details.append(node("p","overlapNote","Overlapping outings are outlined. Drag either one to adjust the time."));
+  if(edit&&edit.day===i)grid.append(el("editor"));
+ });
+ el("editor").hidden=!edit;el("printTitle").textContent=[work.name,work.author,work.date].filter(Boolean).join(" · ");
+}
+let suppressClick=false;
+function beginDrag(ev,e,lane,b){
+ if(ev.button!==0)return;
+ const rect=lane.getBoundingClientRect();drag={id:e.id,x:ev.clientX,y:ev.clientY,offset:range[0]+(ev.clientX-rect.left)/rect.width*(range[1]-range[0])-e.start,active:false,b,pointer:ev.pointerId};
+ b.setPointerCapture(ev.pointerId);
+}
+function removeMarker(){document.querySelector(".target")?.remove()}
+function atPointer(ev){return document.elementFromPoint(ev.clientX,ev.clientY)?.closest(".lane")}
+document.addEventListener("pointermove",ev=>{
+ if(!drag||ev.pointerId!==drag.pointer)return;
+ if(Math.hypot(ev.clientX-drag.x,ev.clientY-drag.y)<4&&!drag.active)return;
+ drag.active=true;drag.b.classList.add("drag");removeMarker();const lane=atPointer(ev);if(!lane)return;
+ const t=slot(lane,ev.clientX,drag.offset),mark=node("span","target");mark.style.left=pct(t)+"%";mark.append(node("b","",clock(Math.max(0,t))));lane.append(mark);
+});
+function finishDrag(ev,cancelled){
+ if(!drag||ev.pointerId!==drag.pointer)return;const d=drag;drag=null;removeMarker();d.b.classList.remove("drag");if(!d.active)return;
+ suppressClick=true;setTimeout(()=>suppressClick=false,100);if(cancelled)return;const lane=atPointer(ev);if(!lane){msg("Drop the outing on a day’s time bar.");return}
+ const e=work.events.find(h=>h.id===d.id);const moved={...e,day:Number(lane.dataset.day),start:slot(lane,ev.clientX,d.offset)};
+ const problem=timeProblem(moved);if(problem){msg(problem);return}
+ Object.assign(e,moved);edit=null;persist();draw();msg(e.name+" moved to "+days[e.day]+" at "+clock(e.start)+".");
+}
+document.addEventListener("pointerup",ev=>finishDrag(ev,false));document.addEventListener("pointercancel",ev=>finishDrag(ev,true));
+function openEditor(day,start,e){
+ edit=e?copy(e):{id:uid(),day,start,name:"",route:"",rest:0,out:0,walk:0,back:0};
+ el("day").value=day;el("start").value=time(start);el("search").value=edit.name;
+ for(const k of ["rest","out","walk","back"])el(k).value=k==="walk"&&!edit[k]?"":edit[k];
+ el("editorTitle").textContent=e?"Edit outing":"Add an outing";el("commit").textContent=e?"Save changes":"Add to calendar";el("remove").hidden=!e;
+ el("matches").replaceChildren();el("source").textContent=catalog.find(c=>c.id===edit.route)?.note||"";msg("");draw();preview();el("search").focus();el("search").select();
+}
+function draft(){const e={...edit,day:Number(el("day").value),start:minutes(el("start").value),name:el("search").value.trim()};for(const k of ["rest","out","walk","back"])e[k]=Number(el(k).value);return e}
+function preview(){if(!edit)return;const e=draft();el("preview").textContent=e.walk>0&&Number.isInteger(e.start)?(timeProblem(e)||(describe(e)+(overlaps(e,work.events)?" · Overlaps another outing. You can still add or move it.":""))):""}
+function selectTrail(c){edit.route=c.id;el("search").value=c.name;el("out").value=el("back").value=c.drive;el("walk").value=c.walk;el("source").textContent=c.note||"Drive estimates are from Skyland. Adjust for a direct drive between trailheads.";el("matches").replaceChildren();preview()}
+function search(){
+ edit.route="";el("source").textContent="";el("walk").value="";el("out").value=el("back").value=0;const q=el("search").value.trim().toLowerCase(),matches=el("matches");matches.replaceChildren();if(!q)return;
+ for(const c of catalog.filter(c=>c.name.toLowerCase().includes(q))){const b=node("button","",c.name);b.type="button";b.onclick=()=>selectTrail(c);matches.append(b)}
+ if(!matches.children.length)el("source").textContent="Custom outing. Enter your own drive and hiking times.";
+}
+el("search").oninput=search;el("search").onkeydown=ev=>{if(ev.key==="Enter"&&el("matches").firstChild){ev.preventDefault();el("matches").firstChild.click()}};
+el("editor").oninput=preview;el("editor").onsubmit=ev=>{ev.preventDefault();const e=draft();const problem=timeProblem(e);if(problem||!e.name){el("preview").textContent=problem||"Enter a trail name.";return}
+ work.events=work.events.filter(x=>x.id!==e.id).concat(e);edit=null;persist();draw();msg(e.name+" scheduled for "+days[e.day]+" at "+clock(e.start)+".")};
+el("cancel").onclick=()=>{edit=null;draw()};el("remove").onclick=()=>{work.events=work.events.filter(x=>x.id!==edit.id);edit=null;persist();draw();msg("Outing removed.")};
+el("add").onclick=()=>openEditor(0,Math.min(1435,Math.max(840,...work.events.filter(e=>e.day===0).map(end))));
+for(const [i,d] of days.entries()){const opt=node("option","",d);opt.value=i;el("day").append(opt)}
+function meta(){work.name=el("name").value.trim();work.author=el("author").value;work.date=el("date").value||today();persist();el("printTitle").textContent=[work.name,work.author,work.date].join(" · ")}
+function planDialog(manage){
+ for(const k of ["name","author","date"])el(k).value=work[k];
+ el("saveFields").hidden=manage;el("manageFields").hidden=!manage;
+ el("dialogTitle").textContent=manage?"Open or share ideas":"Save as a new idea";
+ el("planStatus").textContent="";
+ el("planDialog").showModal();el(manage?"ideas":"name").focus();
+}
+el("dialogOpen").onclick=()=>planDialog(false);
+el("manageOpen").onclick=()=>planDialog(true);
+el("dismiss").onclick=()=>el("planDialog").close();
+function show(){for(const k of ["name","author","date"])el(k).value=work[k];const list=el("ideas");list.replaceChildren();
+ for(const p of ideas.slice().reverse()){const o=node("option","",p.date+" · "+p.author+" · "+p.name);o.value=p.id;list.append(o)}
+ if(!ideas.length)list.append(node("option","","No ideas saved yet"));el("open").disabled=!ideas.length;edit=null;draw()}
+function named(){if(!el("name").value.trim()){el("planStatus").textContent="Give this idea a plan name first.";el("name").focus();return false}meta();return true}
+function snapshot(){return {...copy(work),id:uid()}}
+el("save").onclick=()=>{if(!named())return;ideas.push(snapshot());show();el("planDialog").close();msg("Saved "+work.name+" · "+work.author+" · "+work.date+".");persist()};
+function checkSwitch(){return !work.events.length||ideas.some(p=>p.name===work.name&&p.author===work.author&&p.date===work.date&&JSON.stringify(p.events)===JSON.stringify(work.events))||confirm("Replace the current draft? Choose Cancel to save it as an idea first.")}
+el("open").onclick=()=>{const p=ideas.find(p=>p.id===el("ideas").value);if(p&&checkSwitch()){work=copy(p);show();el("ideas").value=p.id;persist();el("planDialog").close();msg("Opened "+p.name+".")}};
+el("new").onclick=()=>{if(checkSwitch()){work=blank();show();persist();el("planDialog").close();msg("Started a blank calendar.")}};
+el("share").onclick=()=>{if(!work.name){el("saveFields").hidden=false;el("dialogTitle").textContent="Name this calendar to share it";}if(!named())return;const p=snapshot(),doc=new DOMParser().parseFromString(pristine,"text/html");doc.getElementById("shared").textContent=JSON.stringify(p).replaceAll("<","\\u003c");const blob=new Blob(["<!doctype html>\n",doc.documentElement.outerHTML],{type:"text/html"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=("Shenandoah_"+p.author+"_"+p.date+"_"+p.name.replace(/[^a-z0-9-]+/gi,"_").slice(0,60))+".html";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
+el("import").onclick=()=>el("file").click();el("file").onchange=async()=>{
+ try{const f=el("file").files[0];if(!f)return;const doc=new DOMParser().parseFromString(await f.text(),"text/html");const p=JSON.parse(doc.getElementById("shared")?.textContent||"null");if(!valid(p))throw Error();
+ if(!checkSwitch())return;work=copy(p);work.id=uid();ideas.push(copy(work));show();el("planStatus").textContent="Imported "+p.name+" into saved ideas.";persist()
+ }catch{el("planStatus").textContent="Choose an HTML file made with Download shareable calendar."}finally{el("file").value=""}};
+el("timing").onchange=()=>el("grid").classList.toggle("withTimes",el("timing").checked);
+el("print").onclick=()=>{el("planDialog").close();window.print()};show();
+})();
+
+(()=>{
+const finder = document.querySelector('#finder');
+const results = document.querySelector('#results');
+const trails = Array.from(results.children);
+const limits = ['time', 'grade', 'length', 'gain'];
+const headings = document.querySelectorAll('.comparison thead button');
+let key = 'time';
+let direction = 1;
+function trailName(row) {
+  return row.querySelector('th a').textContent;
+}
+for (const button of headings) {
+  button.addEventListener('click', () => {
+    direction = key === button.dataset.sort ? -direction : 1;
+    key = button.dataset.sort;
+    refreshTrails();
+  });
+}
+function refreshTrails() {
+  const fields = finder.elements;
+  for (const button of headings) {
+    const active = button.dataset.sort === key;
+    const header = button.closest('th');
+    if (active) header.setAttribute('aria-sort', direction === 1 ? 'ascending' : 'descending');
+    else header.removeAttribute('aria-sort');
+    button.querySelector('span').textContent = active ? (direction === 1 ? '↑' : '↓') : '↕';
+  }
+  let count = 0;
+  const sorted = trails.slice().sort((a,b) => {
+    const names = trailName(a).localeCompare(trailName(b), 'en');
+    if (key === 'name') return direction * names;
+    return direction * (Number(a.dataset[key]) - Number(b.dataset[key])) || names;
+  });
+  for (const trail of sorted) {
+    const withinLimits = limits.every(metric => fields.namedItem(metric).value === '' || Number(trail.dataset[metric]) <= fields.namedItem(metric).valueAsNumber);
+    trail.hidden = !withinLimits || (fields.jeff.checked && trail.dataset.jeff !== 'true');
+    if (!trail.hidden) count++;
+    results.append(trail);
+  }
+  document.querySelector('#trailCount').textContent = count ? count + ' of ' + trails.length + ' trails' : 'No matching trails. Raise a limit or reset the filters.';
+}
+finder.addEventListener('input', refreshTrails);
+finder.addEventListener('submit', event => event.preventDefault());
+finder.addEventListener('reset', () => setTimeout(refreshTrails, 0));
+finder.hidden = false;
+refreshTrails();
+})();</script><script>
+if (window.parent !== window && window.frameElement?.id === 'trip-planner') {
+  const frame = window.frameElement;
+  const resize = () => { frame.style.height = Math.ceil(document.body.getBoundingClientRect().height + 2) + 'px'; };
+  new ResizeObserver(resize).observe(document.body);
+  resize();
+}
+</script></body></html>
